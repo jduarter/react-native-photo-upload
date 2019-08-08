@@ -27,7 +27,8 @@ export default class PhotoUpload extends React.Component {
     onResponse: PropTypes.func, // on response exists!
     onRender: PropTypes.func, // after render
     onResizedImageUri: PropTypes.func, // when image resized is ready
-    imagePickerProps: PropTypes.object // react-native-image-picker props
+    imagePickerProps: PropTypes.object, // react-native-image-picker props
+    avatarSource: PropTypes.object
   }
 
   state = {
@@ -116,11 +117,11 @@ export default class PhotoUpload extends React.Component {
   }
 
   renderChildren = props => {
+    const avatarSource = {source: (props.avatarSource || this.state.avatarSource)}
+
     return React.Children.map(props.children, child => {
       if (child && child.type === Image && this.state.avatarSource) {
-        return React.cloneElement(child, {
-          source: this.state.avatarSource
-        })
+        return React.cloneElement(child, avatarSource)
       } else return child
     })
   }
