@@ -47,7 +47,8 @@ export default class PhotoUpload extends React.Component {
     ...this.props.imagePickerProps
   }
 
-  openImagePicker = () => {
+  openImagePicker = async () => {
+console.log('inside openimagepicker');
     this.setState({buttonDisabled: true})
     if (this.props.onStart) this.props.onStart()
 
@@ -133,7 +134,10 @@ export default class PhotoUpload extends React.Component {
     return (
       <View style={[styles.container, this.props.containerStyle]}>
         <TouchableOpacity
-          onPress={this.openImagePicker}
+          onPress={async () => {
+
+requestAnimationFrame(() => this.openImagePicker());
+}}
           disabled={this.state.buttonDisabled}
         >
           {this.renderChildren(this.props)}
